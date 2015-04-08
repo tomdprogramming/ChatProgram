@@ -33,11 +33,11 @@ int main(int argc, char* argv[])
 	char ipstr[INET6_ADDRSTRLEN];
 	char message[100];
 	memset(message, 0, 100);
-	int BytesReceived;
+	int BytesSent, BytesReceived;
 	int id;
 	int ClientConnected = 1;
 	char* QuitMessage = "qqq";
-	
+	char* WelcomeMsg = "Welcome";
 	gethostname(hostname, 64);
 	
 	printf("hostname is : %s\n\n",hostname);
@@ -112,7 +112,8 @@ int main(int argc, char* argv[])
 	else if(id==0)//I am the child, I will handle communication on this socket 
 	{
 		printf("A client has connected!!!\n\n");
-	
+	    BytesSent = send(NewSockFD, WelcomeMsg, 7,0);
+	    printf("\n%d Bytes Sent",BytesSent);
 		while(ClientConnected != 0)
 		{
 			BytesReceived = recv(NewSockFD,message,100,0);
